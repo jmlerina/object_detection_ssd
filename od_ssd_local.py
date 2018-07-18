@@ -18,7 +18,7 @@ def load_coco_dict(labels_path):
     labels_dict = {}
     for info in coco_labels['labels']:
         labels_dict[info['id']] = info['label']
-        
+
     return labels_dict
 
 
@@ -26,12 +26,12 @@ class image_converter:
 
   def __init__(self):
     print ("Instatiating Net...")
-    model_checkpoint = '/home/wagston/object_detect_ssd/models/ssd_mobilenet_v2_coco_2018_03_29/frozen_inference_graph.pb'
-    labels_path = '/home/wagston/object_detect_ssd/models/ssd_mobilenet_v2_coco_2018_03_29/coco_labels.txt'
+    model_checkpoint = '/models/ssd_mobilenet_v2_coco_2018_03_29/frozen_inference_graph.pb'
+    labels_path = '/models/ssd_mobilenet_v2_coco_2018_03_29/coco_labels.txt'
     self.labels_dict = load_coco_dict(labels_path)
 
     #Load the model graph from file and create a session.
-    #  Here, we create a session that will be kept in memory and reused for all inferences. 
+    #  Here, we create a session that will be kept in memory and reused for all inferences.
     self.detection_graph = tf.Graph()
     self.session = tf.Session(graph=self.detection_graph)
     with self.detection_graph.as_default():
@@ -51,7 +51,7 @@ class image_converter:
                 if tensor_name in all_tensor_names:
                     tensor_dict[key] = tf.get_default_graph().get_tensor_by_name(tensor_name)
             image_tensor = tf.get_default_graph().get_tensor_by_name('image_tensor:0')
-            
+
 
   ##########################
   #Method to run inference using the graph defined at 'init'
@@ -78,7 +78,7 @@ class image_converter:
       output_dict['detection_scores'] = output_dict['detection_scores'][0]
     return output_dict
 
-    
+
   ##########################
   #Callback in the event of receiving new frame from camera topic
   def callback(self, cv_image):
@@ -88,7 +88,7 @@ class image_converter:
     except CvBridgeError as e:
       print(e)
       raise
-    
+
     output_dict = self.run_inference(cv_image_prep, self.detection_graph)
 
     confidence_threshold = .6
@@ -106,17 +106,16 @@ class image_converter:
 
 def main(args):
   ic = image_converter()
-  
+
   while True:
     frame = grabVideoFeed()
-    
+
     if frame is None:
         raise SystemError('Issue grabbing the frame')
-  
+
     ic.callback(frame)
   cv2.destroyAllWindows()
 
 
 if __name__ == '__main__':
     main(sys.argv)
-
