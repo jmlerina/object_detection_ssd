@@ -13,7 +13,7 @@ mv coco_labels.txt models/ssd_mobilenet_v2_coco_2018_03_29/
 
 #Setup conda
 conda env create -f windows_env.yml|linux_env.yml
-activate object_detection
+source activate od
 
 # ==> Check model and labels paths within the script
 #Run real-time inferences
