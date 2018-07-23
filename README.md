@@ -1,8 +1,6 @@
-# Real-time Object Detection using SSD Mobilenet
+## Real-time Object Detection using SSD Mobilenet
 
-Object detection that uses OpenCV and Tensorflow to execute in real-time.
-Model was obtained from here (http://download.tensorflow.org/models/object_detection/ssd_mobilenet_v2_coco_2018_03_29.tar.gz).
-Other models available are listed here (https://github.com/tensorflow/models/blob/master/research/object_detection/g3doc/detection_model_zoo.md).
+See the original project for more info.
 
 ```bash
 #Prepare the model
