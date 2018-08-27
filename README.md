@@ -1,7 +1,8 @@
-## Real-time Object Detection using SSD Mobilenet
+## Real-time Detection
 
 See the original project for more info.
 
+### Object detection :: MobileNet
 ```bash
 cd object_detection
 #Prepare the model
