@@ -1,9 +1,7 @@
-## Real-time Detection
+## Real-time Object Detection using MobileNet
 
-See the original project for more info.
 Mind the path strings in the code and prefer using absolute paths.
 
-### Object detection :: MobileNet
 ```bash
 cd object_detection
 #Prepare the model
