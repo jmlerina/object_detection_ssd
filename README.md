@@ -3,6 +3,7 @@
 See the original project for more info.
 
 ```bash
+cd object_detection
 #Prepare the model
 mkdir models
 cd models
