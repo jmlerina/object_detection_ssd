@@ -28,8 +28,8 @@ class image_converter:
     print ("Instatiating Net...")
     model_checkpoint = '/home/lis/Documents/realtime_detection/object_detection/models/ssd_mobilenet_v2_coco_2018_03_29/frozen_inference_graph.pb'
 
-    #Load the model graph from file and create a session.
-    #  Here, we create a session that will be kept in memory and reused for all inferences.
+    '''Load the model graph from file and create a session
+       Here, we create a session that will be kept in memory and reused for all inferences.'''
     self.detection_graph = tf.Graph()
     self.session = tf.Session(graph=self.detection_graph)
     with self.detection_graph.as_default():
@@ -40,7 +40,7 @@ class image_converter:
             tf.import_graph_def(od_graph_def, name='')
 
         with self.session as sess:
-            # Get handles to input and output tensors
+            '''Get handles to input and output tensors'''
             ops = tf.get_default_graph().get_operations()
             all_tensor_names = {output.name for op in ops for output in op.outputs}
             tensor_dict = {}
@@ -51,8 +51,8 @@ class image_converter:
             image_tensor = tf.get_default_graph().get_tensor_by_name('image_tensor:0')
 
 
-  ##########################
-  #Method to run inference using the graph defined at 'init'
+  '''#########################'''
+  '''Method to run inference using the graph defined at init'''
   def run_inference(self, image, graph):
     with graph.as_default():
       # Get handles to input and output tensors
@@ -65,11 +65,11 @@ class image_converter:
               tensor_dict[key] = tf.get_default_graph().get_tensor_by_name(tensor_name)
       image_tensor = tf.get_default_graph().get_tensor_by_name('image_tensor:0')
 
-      # Run inference
+      '''Run inference'''
       output_dict = self.session.run(tensor_dict,
                              feed_dict={image_tensor: np.expand_dims(image, 0)})
 
-      # all outputs are float32 numpy arrays, so convert types as appropriate
+      '''all outputs are float32 numpy arrays, so convert types as appropriate'''
       output_dict['num_detections'] = int(output_dict['num_detections'][0])
       output_dict['detection_classes'] = output_dict['detection_classes'][0].astype(np.uint8)
       output_dict['detection_boxes'] = output_dict['detection_boxes'][0]
@@ -77,8 +77,8 @@ class image_converter:
     return output_dict
 
 
-  ##########################
-  #Callback in the event of receiving new frame from camera topic
+  '''##########################'''
+  '''Callback in the event of receiving new frame from camera topic'''
   def callback(self, cv_image):
     try:
       cv_image_prep = cv2.cvtColor(cv_image, cv2.COLOR_BGR2RGB)
