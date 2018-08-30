@@ -11,16 +11,6 @@ def grabVideoFeed():
     grabbed, frame = camera.read()
     return frame if grabbed else None
 
-def load_coco_dict(labels_path):
-    with open(labels_path, 'r') as f:
-        coco_labels = json.load(f)
-
-    labels_dict = {}
-    for info in coco_labels['labels']:
-        labels_dict[info['id']] = info['label']
-
-    return labels_dict
-
 
 class image_converter:
 
