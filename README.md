@@ -13,6 +13,6 @@ activate object_detection
 
 # ==> Check model and labels paths within the script
 #Run real-time inferences
-python od_ssd_local.py
+python wd_ssd_local.py
 ```
 
