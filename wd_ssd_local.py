@@ -16,7 +16,7 @@ class image_converter:
 
   def __init__(self):
     print ("Instatiating Net...")
-    model_checkpoint = '/home/lis/Documents/realtime_detection/object_detection/models/ssd_mobilenet_v2_coco_2018_03_29/frozen_inference_graph.pb'
+    model_checkpoint = '/home/lis/Documents/realtime_detection/models/ssd_mobilenet_v2_coco_2018_03_29/frozen_inference_graph.pb'
 
     '''Load the model graph from file and create a session
        Here, we create a session that will be kept in memory and reused for all inferences.'''
@@ -34,6 +34,10 @@ class image_converter:
             ops = tf.get_default_graph().get_operations()
             all_tensor_names = {output.name for op in ops for output in op.outputs}
             tensor_dict = {}
+
+            for op in ops:
+                print(op.name)
+
             for key in ['num_detections', 'detection_boxes', 'detection_scores', 'detection_classes', 'detection_masks']:
                 tensor_name = key + ':0'
                 if tensor_name in all_tensor_names:
